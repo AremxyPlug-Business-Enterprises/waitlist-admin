@@ -1,0 +1,23 @@
+@media (min-width: 768px) {
+  .signImage {
+    width: 293px;
+    height: 293px;
+  }
+
+  .signLogo {
+    width: 37px;
+    height: 18.16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .signImage {
+    width: 500px;
+    height: 500px;
+  }
+
+  .signLogo {
+    width: 64px;
+    height: 30px;
+  }
+}
