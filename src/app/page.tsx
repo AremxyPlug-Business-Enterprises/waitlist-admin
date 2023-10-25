@@ -93,7 +93,7 @@ export default function Home() {
           {/* ====Form===== */}
           <div className="md:absolute md:top-[25%] lg:top-[20%] mt-[10%] flex flex-col justify-center items-center lg:mx-auto md:w-[80%] lg:w-[100%]">
             {/* ======Email input===== */}
-            <div className=" w-[90%] mx-auto flex flex-col gap-[6px] md:ml-[33%] lg:ml-[27%]">
+            <div className=" w-[90%] mx-auto flex flex-col gap-[6px] md:ml-[33%] lg:ml-[29%]">
               <p className="text-[12px] font-semibold leading-[12px] lg:text-[16px] ">
                 Domain Email
               </p>
@@ -120,7 +120,7 @@ export default function Home() {
             </div>
 
             {/* ==== Password input==== */}
-            <div className="mt-[3%] w-[90%] mx-auto flex flex-col gap-[6px]  md:ml-[33%] lg:ml-[27%]">
+            <div className="mt-[3%] w-[90%] mx-auto flex flex-col gap-[6px]  md:ml-[33%] lg:ml-[29%]">
               <p className="text-[12px] font-semibold leading-[12px] lg:text-[16px]">
                 Password
               </p>
@@ -146,7 +146,7 @@ export default function Home() {
               <p className="text-[#F95252] text-[11px]"> {passwordError}</p>
             </div>
 
-            <div className="my-[6%] w-full flex flex-col gap-[10px] md:ml-[48%] lg:ml-[15%]">
+            <div className="my-[6%] w-full flex flex-col gap-[10px] md:ml-[48%] lg:ml-[20%]">
               <p className="text-[#04177f] text-[10px] text-center font-semibold lg:text-[14px]">
                 Forgot password ?
               </p>
@@ -166,7 +166,7 @@ export default function Home() {
             {/* ====button==== */}
             <button
               onClick={handleSignIn}
-              className="bg-[#04177f] text-[#fff] w-[90%] text-[12px] rounded-[4px] h-[40px] md:w-[113px] md:h-[38px] md:ml-[50%] lg:ml-[15%]"
+              className="bg-[#04177f] text-[#fff] w-[90%] text-[12px] rounded-[4px] h-[40px] md:w-[113px] md:h-[38px] md:ml-[50%] lg:ml-[18%]"
             >
               Sign In
             </button>
