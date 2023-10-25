@@ -78,7 +78,7 @@ export default function Home() {
         <div className="pl-[5%] md:pl-0">
           <div className=" relative w-[100%] h-[500px] bg-[#fff]  rounded-tl-[30px] rounded-bl-[30px] md:rounded-tl-[0px] md:rounded-bl-[0px] md:h-[100vh] md:w-[500px] lg:w-[700px]">
             <Image
-              className="signLogo absolute top-[5%] left-[5%] md:top-[25%] lg:top-[5%]"
+              className="signLogo absolute top-[5%] left-[5%] md:top-[20%] lg:top-[5%]"
               src="/waitlistSignLogo.png"
               alt=""
               width={37}
