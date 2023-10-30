@@ -6,6 +6,7 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useState } from "react";
 import { Loader } from "./Loader/Loader";
 import Modal from "./Modal/Modal";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [input, setInput] = useState({
@@ -33,9 +34,13 @@ export default function Home() {
     }
   };
 
+  const router = useRouter();
+
   const handleSignIn = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
     const emailRegEx = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+
     const passwordRegEx = new RegExp(
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).{8,}$/
     );
@@ -56,6 +61,7 @@ export default function Home() {
       setBorder2("#0005");
       setTimeout(() => {
         // setSuccessful(true);
+        router.push("/Dashboard");
         setIsLoading(false);
       }, 2000);
     }
