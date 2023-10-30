@@ -31,7 +31,6 @@ export default function Sidebar({ toggleSideBar, sidebarVisible }: Props) {
             onClick={toggleSideBar}
           />
         </div>
-
         <div className="flex gap-[10px] pl-[5%] pt-[8%] md:items-center">
           <Image
             className="w-[auto] h-[58.6px] md:w-[65px] md:h-[65px] lg:w-[100px] lg:h-[100px]"

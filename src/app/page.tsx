@@ -33,7 +33,6 @@ export default function Home() {
       console.log("true");
     }
   };
-
   const router = useRouter();
 
   const handleSignIn = (e: { preventDefault: () => void }) => {
