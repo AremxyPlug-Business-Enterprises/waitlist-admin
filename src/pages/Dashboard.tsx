@@ -34,7 +34,7 @@ const Dashboard = (props: Props) => {
           setLoading(false);
         }, 2000);
       } catch (error) {
-        setError(error);
+        setError("Network Error");
         setLoading(false);
       }
     };
@@ -92,7 +92,7 @@ const Dashboard = (props: Props) => {
           <Loader />
         ) : error ? (
           <p className="text-red-500 ml-[5%] text-[14px] md:text-[18px]">
-            Error: {error.message}
+            Error: Network Error
           </p>
         ) : (
           <div
@@ -101,7 +101,7 @@ const Dashboard = (props: Props) => {
             } `}
           >
             <ul>
-              {data.map((item, index) => (
+              {data.map((item: { Email: string }, index) => (
                 <li
                   className="flex justify-between items-center border mb-[2%] mx-[5%] text-[12px] h-[33px] px-[2%] rounded-[5px] md:text-[16px] md:h-[45px] lg:mb-[5px]"
                   key={index}
