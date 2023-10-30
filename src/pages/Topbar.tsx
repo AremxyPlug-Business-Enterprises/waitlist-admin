@@ -1,12 +1,20 @@
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type Props = { toggleSideBar: () => void };
 
 export default function Topbar({ toggleSideBar }: Props) {
   const handleMenuButtonClick = () => {
-    toggleSideBar(); 
+    toggleSideBar();
   };
+
+  const router = useRouter();
+
+  const logout = () => {
+    router.push("/");
+  };
+
   return (
     <div className="flex items-center justify-between  h-[40px] shadow-md px-[4%] md:h-[70px] lg:shadow-lg">
       {" "}
@@ -19,7 +27,7 @@ export default function Topbar({ toggleSideBar }: Props) {
         onClick={handleMenuButtonClick}
       />
       <p className="text-[12px] md:text-[18px]">Admin Dashboard</p>
-      <div className="border-[2px] flex rounded-[8px]">
+      <div className="border-[2px] flex rounded-[8px]" onClick={logout}>
         {" "}
         <Image
           className=" h-[20px] md:w-[35px] md:h-[35px] lg:w-[24px] lg:h-[24px]"

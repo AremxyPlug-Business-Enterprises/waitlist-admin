@@ -66,7 +66,7 @@ export default function Home() {
       }, 2000);
     }
   };
-  
+
   return (
     <>
       {/* ===================MOBILE VIEW================== */}{" "}

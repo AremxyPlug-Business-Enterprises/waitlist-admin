@@ -6,7 +6,6 @@ import { BsSearch } from "react-icons/bs";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import axios from "axios";
 import { Loader } from "../app/Loader/Loader";
-// import Modal from "../app/Modal/Modal";
 
 type Props = {};
 
