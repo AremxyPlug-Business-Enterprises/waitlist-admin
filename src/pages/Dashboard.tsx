@@ -19,8 +19,9 @@ const Dashboard = (_props: Props) => {
   const [data, setData] = useState<EmailData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [deletePopUp, setDeletePopUp] = useState(false);
   const [deleteSuccessPopUp, setDeleteSuccessPopUp] = useState(false);
+  const [confirmationPopup, setConfirmationPopup] = useState(false);
+  const [emailToDelete, setEmailToDelete] = useState("");
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -51,13 +52,10 @@ const Dashboard = (_props: Props) => {
     fetchData();
   }, []);
 
-  // const axiosInstance = axios.create({
-  //   baseURL: "https://waitlist-api-production-0759.up.railway.app/api",
-  //   timeout: 5000,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // });
+  const handleDeleteConfirmation = (email: string) => {
+    setEmailToDelete(email);
+    setConfirmationPopup(true);
+  };
 
   // =====Function to delete an email=====
   const deleteEmail = async (email: string) => {
@@ -69,9 +67,6 @@ const Dashboard = (_props: Props) => {
       console.log(response, "here");
 
       if (response.status === 200) {
-        // Close the delete confirmation pop-up
-        setDeletePopUp(false);
-        // Show the delete success pop-up
         setDeleteSuccessPopUp(true);
       }
       const updatedData = data.filter(
@@ -83,10 +78,8 @@ const Dashboard = (_props: Props) => {
       alert("Unable to delete due to bad network");
       console.error("Error deleting email:", error);
     }
-  };
 
-  const handleDeleteConfirmation = (email: string) => {
-    deleteEmail(email);
+    setConfirmationPopup(false);
   };
 
   return (
@@ -154,9 +147,8 @@ const Dashboard = (_props: Props) => {
                 >
                   <p className="text-[#0008]">{item.Email}</p>
                   <BiDotsVerticalRounded
-                    // onClick={() => setDeletePopUp(true)}
-                    onClick={() => deleteEmail(item.Email)}
                     className="text-lg"
+                    onClick={() => handleDeleteConfirmation(item.Email)}
                   />
                 </li>
               ))}
@@ -165,9 +157,9 @@ const Dashboard = (_props: Props) => {
         )}
       </div>
 
-      {deletePopUp && (
+      {confirmationPopup && (
         <Modal>
-          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px] md:rounded-[14px] md:w-[550px] md:h-[400px]">
+          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px] md:rounded-[14px] md:w-[550px] md:h-[400px] lg:w-[40%] lg:h-[400px]">
             <hr className="mt-[10%] mb-[5%] h-[9px] bg-[#04177f] border-none md:h-[14px]" />
             <p className=" text-[12px] font-semibold text-center md:text-[18px]">
               Are you sure you want to delete this email ?
@@ -175,14 +167,13 @@ const Dashboard = (_props: Props) => {
 
             <div className="flex justify-center gap-[5%] mt-[25%]">
               <button
-                // onClick={() => handleDeleteConfirmation(data[index].Email)}
-                // onClick={() => deleteEmail(item.Email)}
+                onClick={() => deleteEmail(emailToDelete)}
                 className="text-[10px] text-[#f95252] w-[95px] h-[22px] border-[1px] rounded-[7px] md:h-[30px] md:border-[2px] md:w-[120px] md:text-[14px]"
               >
                 Yes
               </button>
               <button
-                onClick={() => setDeletePopUp(false)}
+                onClick={() => setConfirmationPopup(false)}
                 className="text-[10px] text-white w-[95px] h-[22px] bg-[#04177f] rounded-[7px] md:w-[120px] md:h-[30px] md:text-[14px]"
               >
                 Exit
@@ -194,9 +185,11 @@ const Dashboard = (_props: Props) => {
 
       {deleteSuccessPopUp && (
         <Modal>
-          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px] lg:w-[40%] lg:h-[400px]">
+          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px] md:rounded-[14px] md:w-[550px] md:h-[400px] lg:w-[40%] lg:h-[400px]">
             <hr className="mt-[10%] mb-[5%] h-[9px] bg-[#04177f] border-none md:h-[10px]" />
-            <p className=" text-[12px] font-semibold text-center lg:text-[20px]">Successful</p>
+            <p className=" text-[12px] font-semibold text-center lg:text-[20px]">
+              Successful
+            </p>
             <p className=" text-[12px] font-semibold text-center lg:text-[18px]">
               Email has been deleted successfully
             </p>
