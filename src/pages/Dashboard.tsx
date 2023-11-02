@@ -22,13 +22,22 @@ const Dashboard = (_props: Props) => {
   const [deleteSuccessPopUp, setDeleteSuccessPopUp] = useState(false);
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [emailToDelete, setEmailToDelete] = useState("");
+  const [filteredData, setFilteredData] = useState<EmailData[]>(data);
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
 
+  // Update the filteredData whenever the searchTerm changes
   useEffect(() => {
-    // Function to make the API request
+    const filtered = data.filter((item) =>
+      item.Email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
+  // Function to make the API request
+  useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -51,11 +60,6 @@ const Dashboard = (_props: Props) => {
     };
     fetchData();
   }, []);
-
-  const handleDeleteConfirmation = (email: string) => {
-    setEmailToDelete(email);
-    setConfirmationPopup(true);
-  };
 
   // =====Function to delete an email=====
   const deleteEmail = async (email: string) => {
@@ -80,6 +84,11 @@ const Dashboard = (_props: Props) => {
     }
 
     setConfirmationPopup(false);
+  };
+
+  const handleDeleteConfirmation = (email: string) => {
+    setEmailToDelete(email);
+    setConfirmationPopup(true);
   };
 
   return (
@@ -140,7 +149,7 @@ const Dashboard = (_props: Props) => {
             } `}
           >
             <ul>
-              {data.map((item: { Email: string }, index) => (
+              {filteredData.map((item: { Email: string }, index) => (
                 <li
                   className="flex justify-between items-center border mb-[2%] mx-[5%] text-[12px] h-[33px] px-[2%] rounded-[5px] md:text-[16px] md:h-[45px] lg:mb-[5px]"
                   key={index}
