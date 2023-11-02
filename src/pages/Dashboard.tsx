@@ -27,6 +27,9 @@ const Dashboard = (_props: Props) => {
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
+  const sideVisible = () => {
+    setSidebarVisible(false);
+  };
 
   // Update the filteredData whenever the searchTerm changes
   useEffect(() => {
@@ -82,13 +85,16 @@ const Dashboard = (_props: Props) => {
       alert("Unable to delete due to bad network");
       console.error("Error deleting email:", error);
     }
-
     setConfirmationPopup(false);
   };
 
   const handleDeleteConfirmation = (email: string) => {
     setEmailToDelete(email);
     setConfirmationPopup(true);
+  };
+
+  const toggle = () => {
+    setSidebarVisible(false);
   };
 
   return (
@@ -99,13 +105,16 @@ const Dashboard = (_props: Props) => {
           sidebarVisible={sidebarVisible}
         />
       </div>
-      <Topbar toggleSideBar={toggleSidebar} />
+      <Topbar
+        toggleSideBar={toggleSidebar}
+      />
 
       {/* =======content===== */}
       <div
         className={`${
           sidebarVisible ? "lg:ml-[26%]" : ""
         } px-[5%] pt-[12%] lg:pt-[2%]`}
+        onClick={toggle}
       >
         {" "}
         <div className="flex justify-between">
@@ -135,7 +144,7 @@ const Dashboard = (_props: Props) => {
         </div>
       </div>
 
-      <div>
+      <div onClick={toggle}>
         {loading ? (
           <Loader />
         ) : error ? (
@@ -153,6 +162,7 @@ const Dashboard = (_props: Props) => {
                 <li
                   className="flex justify-between items-center border mb-[2%] mx-[5%] text-[12px] h-[33px] px-[2%] rounded-[5px] md:text-[16px] md:h-[45px] lg:mb-[5px]"
                   key={index}
+                  onClick={toggle}
                 >
                   <p className="text-[#0008]">{item.Email}</p>
                   <BiDotsVerticalRounded

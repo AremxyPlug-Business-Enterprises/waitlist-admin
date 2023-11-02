@@ -10,6 +10,11 @@ export default function Topbar({ toggleSideBar }: Props) {
 
   const handleMenuButtonClick = () => {
     toggleSideBar();
+    setLogout(false);
+  };
+
+  const handleClose = () => {
+    setLogout(!logout);
   };
 
   return (
@@ -24,10 +29,7 @@ export default function Topbar({ toggleSideBar }: Props) {
         onClick={handleMenuButtonClick}
       />
       <p className="text-[12px] md:text-[18px]">Admin Dashboard</p>
-      <div
-        className="border-[2px] flex rounded-[8px]"
-        onClick={() => setLogout(!logout)}
-      >
+      <div className="border-[2px] flex rounded-[8px]" onClick={handleClose}>
         {" "}
         <Image
           className=" h-[20px] md:w-[35px] md:h-[35px] lg:w-[24px] lg:h-[24px]"
