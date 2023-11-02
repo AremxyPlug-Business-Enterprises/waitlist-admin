@@ -167,9 +167,9 @@ const Dashboard = (_props: Props) => {
 
       {deletePopUp && (
         <Modal>
-          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px]">
-            <hr className="mt-[10%] mb-[5%] h-[9px] bg-[#04177f] border-none md:h-[10px]" />
-            <p className=" text-[12px] font-semibold text-center">
+          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px] md:rounded-[14px] md:w-[550px] md:h-[400px]">
+            <hr className="mt-[10%] mb-[5%] h-[9px] bg-[#04177f] border-none md:h-[14px]" />
+            <p className=" text-[12px] font-semibold text-center md:text-[18px]">
               Are you sure you want to delete this email ?
             </p>
 
@@ -177,13 +177,13 @@ const Dashboard = (_props: Props) => {
               <button
                 // onClick={() => handleDeleteConfirmation(data[index].Email)}
                 // onClick={() => deleteEmail(item.Email)}
-                className="text-[10px] text-[#f95252] w-[95px] h-[22px] border-[1px] rounded-[7px]"
+                className="text-[10px] text-[#f95252] w-[95px] h-[22px] border-[1px] rounded-[7px] md:h-[30px] md:border-[2px] md:w-[120px] md:text-[14px]"
               >
                 Yes
               </button>
               <button
                 onClick={() => setDeletePopUp(false)}
-                className="text-[10px] text-white w-[95px] h-[22px] bg-[#04177f] rounded-[7px]"
+                className="text-[10px] text-white w-[95px] h-[22px] bg-[#04177f] rounded-[7px] md:w-[120px] md:h-[30px] md:text-[14px]"
               >
                 Exit
               </button>
@@ -194,14 +194,14 @@ const Dashboard = (_props: Props) => {
 
       {deleteSuccessPopUp && (
         <Modal>
-          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px]">
+          <div className="w-[300px] h-[219px] shadow-[#0005] bg-white rounded-[11px] lg:w-[40%] lg:h-[400px]">
             <hr className="mt-[10%] mb-[5%] h-[9px] bg-[#04177f] border-none md:h-[10px]" />
-            <p className=" text-[12px] font-semibold text-center">Successful</p>
-            <p className=" text-[12px] font-semibold text-center">
+            <p className=" text-[12px] font-semibold text-center lg:text-[20px]">Successful</p>
+            <p className=" text-[12px] font-semibold text-center lg:text-[18px]">
               Email has been deleted successfully
             </p>
             <Image
-              className="mt-[2%] w-auto h-[50px] mx-auto lg:w-[60px] lg:h-[60px]"
+              className="mt-[2%] w-auto h-[50px] mx-auto lg:w-[80px] lg:h-[80px]"
               src="/Gif/checkMarkGif.gif"
               alt="/"
               width={50}
@@ -210,7 +210,7 @@ const Dashboard = (_props: Props) => {
             <div className="flex justify-center gap-[5%] mt-[12%]">
               <button
                 onClick={() => setDeleteSuccessPopUp(false)}
-                className="text-[10px] text-white w-[95px] h-[22px] bg-[#04177f] rounded-[7px]"
+                className="text-[10px] text-white w-[95px] h-[22px] bg-[#04177f] rounded-[7px] lg:w-[120px] lg:h-[30px] lg:text-[16px]"
               >
                 Done
               </button>
