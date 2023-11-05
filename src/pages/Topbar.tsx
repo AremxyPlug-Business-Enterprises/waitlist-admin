@@ -18,7 +18,7 @@ export default function Topbar({ toggleSideBar }: Props) {
   };
 
   return (
-    <div className="flex items-center justify-between  h-[40px] shadow-md px-[4%] md:h-[70px] lg:shadow-lg">
+    <div className="sticky top-0 bg-white flex items-center justify-between  h-[40px] shadow-md px-[4%] md:h-[70px] lg:shadow-lg">
       {" "}
       <Image
         className=" md:h-[50px] md:w-[60px] lg:w-[50px] lg:h-[50px]"

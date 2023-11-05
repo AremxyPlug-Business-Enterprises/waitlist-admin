@@ -9,7 +9,7 @@ type Props = { toggleSideBar: () => void; sidebarVisible: any };
 export default function Sidebar({ toggleSideBar, sidebarVisible }: Props) {
   return (
     <div
-      className={`absolute bg-[#04177f] flex flex-col justify-between w-[188px] h-[100vh] rounded-tr-[15px] rounded-br-[15px] md:w-[290px] lg:w-[320px] lg:rounded-tr-[25px] lg:rounded-br-[25px] ${
+      className={` z-50 fixed bg-[#04177f] flex flex-col justify-between w-[188px] h-[100vh] rounded-tr-[15px] rounded-br-[15px] md:w-[290px] lg:w-[320px] lg:rounded-tr-[25px] lg:rounded-br-[25px] ${
         sidebarVisible ? "" : "hidden"
       }`}
     >
