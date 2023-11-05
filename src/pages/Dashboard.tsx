@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import Image from "next/image";
@@ -7,11 +7,14 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import axios from "axios";
 import { Loader } from "../app/Loader/Loader";
 import Modal from "@/app/Modal/Modal";
+import { saveAs } from "file-saver";
 
 type Props = {};
 type EmailData = {
   Email: string;
 };
+
+const LOGOUT_TIME = 900000;
 
 const Dashboard = (_props: Props) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -23,6 +26,25 @@ const Dashboard = (_props: Props) => {
   const [confirmationPopup, setConfirmationPopup] = useState(false);
   const [emailToDelete, setEmailToDelete] = useState("");
   const [filteredData, setFilteredData] = useState<EmailData[]>(data);
+  const [lastActivityTime, setLastActivityTime] = useState(Date.now());
+
+  // Function to reset the activity timer
+  const resetActivityTimer = useCallback(() => {
+    setLastActivityTime(Date.now());
+  }, []);
+
+  // Function to handle user inactivity and trigger logout
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleInactivity = () => {
+    const currentTime = Date.now();
+    if (currentTime - lastActivityTime >= LOGOUT_TIME) {
+      // User has been inactive for 10 minutes, log them out here
+      // You can implement your logout logic here, e.g., clearing user session or redirecting to the login page.
+      alert("You have been logged out due to inactivity.");
+      // Example: redirect to the login page
+      window.location.href = "/";
+    }
+  };
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -30,6 +52,21 @@ const Dashboard = (_props: Props) => {
   const sideVisible = () => {
     setSidebarVisible(false);
   };
+
+  useEffect(() => {
+    const activityInterval = setInterval(handleInactivity, 60000); // Check every minute
+
+    // Reset the activity timer whenever the user interacts with the page
+    document.addEventListener("mousemove", resetActivityTimer);
+    document.addEventListener("keydown", resetActivityTimer);
+
+    // Clean up event listeners and interval on component unmount
+    return () => {
+      clearInterval(activityInterval);
+      document.removeEventListener("mousemove", resetActivityTimer);
+      document.removeEventListener("keydown", resetActivityTimer);
+    };
+  }, [handleInactivity, lastActivityTime, resetActivityTimer]);
 
   // Update the filteredData whenever the searchTerm changes
   useEffect(() => {
@@ -88,6 +125,18 @@ const Dashboard = (_props: Props) => {
     setConfirmationPopup(false);
   };
 
+  // Function to download emails as a document
+  const downloadEmails = () => {
+    // Create a string containing the email addresses
+    const emailList = data.map((item: EmailData) => item.Email).join("\n");
+
+    // Convert the emailList string into a Blob
+    const blob = new Blob([emailList], { type: "text/plain;charset=utf-8" });
+
+    // Use saveAs to trigger the download
+    saveAs(blob, "emails.txt");
+  };
+
   const handleDeleteConfirmation = (email: string) => {
     setEmailToDelete(email);
     setConfirmationPopup(true);
@@ -105,9 +154,7 @@ const Dashboard = (_props: Props) => {
           sidebarVisible={sidebarVisible}
         />
       </div>
-      <Topbar
-        toggleSideBar={toggleSidebar}
-      />
+      <Topbar toggleSideBar={toggleSidebar} />
 
       {/* =======content===== */}
       <div
@@ -120,9 +167,10 @@ const Dashboard = (_props: Props) => {
         <div className="flex justify-between">
           <h1 className="font-semibold md:text-[26px]">Waitlist Emails</h1>
           <Image
-            className="w-auto h md:w-[35px] md:h-[35px] lg:w-[24px] lg:h-[24px]"
+            onClick={downloadEmails}
+            className="cursor-pointer w-auto h md:w-[35px] md:h-[35px] lg:w-[24px] lg:h-[24px]"
             src="/droplist.png"
-            alt="logout"
+            alt="download"
             width={20}
             height={20}
           />

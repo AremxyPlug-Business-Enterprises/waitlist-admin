@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Loader } from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 import { useRouter } from "next/navigation";
+import Forgetpassword from "@/pages/Forgetpassword";
 
 export default function Home() {
   const [input, setInput] = useState({
@@ -20,6 +21,7 @@ export default function Home() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState(false);
 
   const handleInput = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -156,7 +158,12 @@ export default function Home() {
               </div>
 
               <div className="my-[6%] w-full flex flex-col gap-[10px]">
-                <p className="text-[#04177f] text-[10px] text-center font-semibold md:text-[16px] lg:text-[14px]">
+                <p
+                  onClick={() =>
+                    alert("Forgot password not available at the moment")
+                  }
+                  className="text-[#04177f] text-[10px] text-center font-semibold md:text-[16px] lg:text-[14px]"
+                >
                   Forgot password ?
                 </p>
                 <div className="flex justify-center items-center gap-[1%]">
@@ -187,6 +194,10 @@ export default function Home() {
           <Modal>
             <Loader />
           </Modal>
+        )}
+
+        {forgetPassword && (
+          <Forgetpassword setForgetPassword={setForgetPassword} />
         )}
       </main>
     </>
