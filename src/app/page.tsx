@@ -81,7 +81,7 @@ export default function Home() {
           alert("Login Failed");
         }
       } catch (error) {
-        console.log(error);
+        alert("Incorrect Login Details");
       }
 
       setIsLoading(false);
