@@ -8,6 +8,7 @@ import { Loader } from "./Loader/Loader";
 import Modal from "./Modal/Modal";
 import { useRouter } from "next/navigation";
 import Forgetpassword from "@/pages/Forgetpassword";
+import axios from "axios";
 
 export default function Home() {
   const [input, setInput] = useState({
@@ -37,7 +38,7 @@ export default function Home() {
   };
   const router = useRouter();
 
-  const handleSignIn = (e: { preventDefault: () => void }) => {
+  const handleSignIn = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const emailRegEx = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -60,11 +61,30 @@ export default function Home() {
       setPasswordError("");
       setBorder("#0005");
       setBorder2("#0005");
-      setTimeout(() => {
-        // setSuccessful(true);
-        router.push("/Dashboard");
-        setIsLoading(false);
-      }, 2000);
+      try {
+        const config = {
+          headers: { "Content-Type": "application/json" },
+        };
+        const response = await axios.post(
+          "https://aremxyplug.onrender.com/api/v1/login",
+          {
+            email: input.email,
+            password: input.password,
+          },
+          config
+        );
+
+        if (response.status === 201) {
+          // Successfully logged in
+          router.push("/Dashboard");
+        } else {
+          alert("Login Failed");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      setIsLoading(false);
     }
   };
 
