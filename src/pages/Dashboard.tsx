@@ -84,9 +84,10 @@ const Dashboard = (_props: Props) => {
         const response = await axios.get(
           "https://waitlist-api-production-0759.up.railway.app/api/getWaitlist"
         );
+        console.log(response.data);
         const sortedData = response.data.sort(
-          (a: { Timestamp: number }, b: { Timestamp: number }) =>
-            a.Timestamp - b.Timestamp
+          (a: { timestamp: number }, b: { timestamp: number }) =>
+            b.timestamp - a.timestamp
         );
         setData(sortedData);
         // console.log(response);
