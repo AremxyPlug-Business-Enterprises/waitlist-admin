@@ -47,7 +47,7 @@ export default function Topbar({ toggleSideBar }: Props) {
         />
       </div>
       {logout && (
-        <ul className="z-[99px] bg-white border drop-shadow-xl absolute top-[5%] right-[5%]  ml-[12px] mt-[px] rounded-[3px] w-[95px] md:top-[5%] md:w-[154px] lg:rounded-[6px] lg:right-[4%] lg:top-[10.5%] lg:w-[200px] lg:ml-[19px]">
+        <ul className="z-[99px] bg-white border drop-shadow-xl absolute top-[41px] right-[5%]  ml-[12px] mt-[px] rounded-[3px] w-[95px] md:top-[69px] md:w-[154px] lg:rounded-[6px] lg:right-[4%] lg:top-[70px] lg:w-[200px] lg:ml-[19px]">
           <li className="z-[99px] ursor-pointer hover:underline pt-1 pb-1 pl-1 text-[9px] font-medium border-b-[0.22px] md:border-b-[1.335px] md:text-[16px] md:p-3 lg:pt-[6%] lg:pb-[6%] lg:pl-[6%] lg:border-b-[0.6px] lg:text-[14px] ">
             My Profile
           </li>
