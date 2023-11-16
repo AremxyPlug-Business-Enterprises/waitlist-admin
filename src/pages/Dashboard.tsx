@@ -38,10 +38,7 @@ const Dashboard = (_props: Props) => {
   const handleInactivity = () => {
     const currentTime = Date.now();
     if (currentTime - lastActivityTime >= LOGOUT_TIME) {
-      // User has been inactive for 10 minutes, log them out here
-      // You can implement your logout logic here, e.g., clearing user session or redirecting to the login page.
       alert("You have been logged out due to inactivity.");
-      // Example: redirect to the login page
       window.location.href = "/";
     }
   };
