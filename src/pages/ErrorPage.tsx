@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
-export default function ErrorPage() {
+type Props = {};
+
+function ErrorPage({}: Props) {
   return (
     <div className="flex flex-col gap-[10px] lg:gap-[20px] pt-[40%] lg:pt-[4%] mx-[5%]">
       <h1 className="lg:text-[190px] font-extrabold text-[#0005] text-[100px] text-center md:text-[170px]">
@@ -15,7 +17,7 @@ export default function ErrorPage() {
         REMOVED, NAME CHANGED OR IS TEMPORARILY UNAVAILABLE
       </p>
       <Link
-        to="/"
+        href="/"
         className="p-2 text-center md:w-[50%] md:text-[20px] lg:w-[30%] md:mx-auto rounded-[10px] text-white bg-[#04177f] text-[14px]"
       >
         GO TO HOMEPAGE
@@ -23,3 +25,5 @@ export default function ErrorPage() {
     </div>
   );
 }
+
+export default ErrorPage;
