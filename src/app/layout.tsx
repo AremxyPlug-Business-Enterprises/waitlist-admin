@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'AremxyPlug|Admin',
-  description: '',
+  title: 'Admin|AremxyPlug',
+  description: 'AremxyPlug Official Administrator',
 }
 
 export default function RootLayout({
