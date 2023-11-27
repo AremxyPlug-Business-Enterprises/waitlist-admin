@@ -9,6 +9,7 @@ import Modal from "./Modal/Modal";
 import { useRouter } from "next/navigation";
 import Forgetpassword from "@/pages/Forgetpassword";
 import axios from "axios";
+import WithAuth from "./WithAuth";
 
 export default function Home() {
   const [input, setInput] = useState({
