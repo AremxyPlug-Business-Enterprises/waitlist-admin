@@ -8,7 +8,6 @@ import axios from "axios";
 import { Loader } from "../app/Loader/Loader";
 import Modal from "@/app/Modal/Modal";
 import { saveAs } from "file-saver";
-// import WithAuth from "../app/WithAuth";
 
 type Props = {};
 type EmailData = {
