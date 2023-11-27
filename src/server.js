@@ -9,7 +9,7 @@ app.prepare().then(() => {
   const server = express();
 
   // Middleware to protect the /dashboard route
-  server.use("/Dashboard", (req, res, next) => {
+  server.use("/dashboard", (req, res, next) => {
 
     if (!req.isAuthenticated()) {
       return res.redirect("/");

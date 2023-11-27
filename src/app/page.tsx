@@ -76,7 +76,7 @@ export default function Home() {
 
         if (response.status === 201) {
           // Successfully logged in
-          router.push("/Dashboard");
+          router.push("/dashboard");
         } else {
           alert("Login Failed");
         }
