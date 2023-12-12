@@ -79,7 +79,7 @@ const Dashboard = (_props: Props) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://waitlist-api-production-0759.up.railway.app/api/getWaitlist"
+          "https://waitlist-5div.onrender.com/api/getWaitlist"
         );
         console.log(response.data);
         const sortedData = response.data.sort(
