@@ -1,0 +1,34 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  deploy:
+    runs-on: ubuntu
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.8.8
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with: 
+          target-server: https://cpanel-s321.web-hosting.com/cpsess3636757448/frontend/jupiter/index.html?login=1&post_login=27488106185544
+          remote-user:  aremmbam
+          private-ssh-key: ${{ secrets.SSH_KEY }}
+          destination-path: ~/adm.aremxyplug.com/
