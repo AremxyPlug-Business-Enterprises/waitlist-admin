@@ -28,7 +28,7 @@ jobs:
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with: 
-          target-server: https://cpanel-s321.web-hosting.com/cpsess3636757448/frontend/jupiter/index.html?login=1&post_login=27488106185544
+          target-server: https://cpanel-s321.web-hosting.com
           remote-user:  aremmbam
           private-ssh-key: ${{ secrets.SSH_KEY }}
           destination-path: ~/adm.aremxyplug.com/
