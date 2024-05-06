@@ -28,7 +28,7 @@ jobs:
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/web-deploy@v1
         with:
-          target-server: 199.188.205.227
+          target-server: www.aremxyplug.com
           remote-user:  aremmbam
           private-ssh-key: ${{ secrets.SSH_KEY }}
           destination-path: ~/adm.aremxyplug.com/
