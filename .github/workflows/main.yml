@@ -27,12 +27,11 @@ jobs:
 
       - name: Convert PEM to OpenSSH format and encrypt with passphrase
         run: |
-          openssl rsa -in ./.ssh_key/Production-server.pem -outform PEM -out private_key.pem
-          ssh-keygen -p -N "${{ secrets.PASS }}" -f private_key.pem
+          openssl rsa -in ./.ssh_key/Production-server.pem -outform PEM -out private_key.pem -passin pass:"{{ secrets.PASS }}"
         env:
           PASSPHRASE: ${{ secrets.PASS }}
 
-      - name: Deploy to cPanel via FTP
+      - name: Deploy to cPanel via SSH
         uses: SamKirkland/web-deploy@v1
         with:
           target-server: ${{ secrets.SERVER }}
