@@ -28,9 +28,15 @@ jobs:
       - name: Save Pem file
         run: echo "${{ secrets.SSH_KEY }}" > private_key.pem
 
+      - name: Print file content
+        run: |
+          echo "Content of the private key file:"
+          cat private_key.pem
+
+
       - name: Add passphrase and encryption
         run: | 
-          openssl rsa -in private_key.pem -outform PEM -out encyrpted_private_key.pem -passin "pass:${{ secrets.PASS }}"
+          openssl rsa -in private_key.pem -outform PEM -out encrypted_private_key.pem -passin "pass:${{ secrets.PASS }}"
         env:
           PASS: ${{ secrets.PASS }}
 
