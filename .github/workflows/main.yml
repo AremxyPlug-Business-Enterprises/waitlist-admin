@@ -27,6 +27,8 @@ jobs:
 
       - name: Save Pem file
         run: echo "${{ secrets.SSH_KEY }}" > private_key.pem
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
       - name: Print file content
         run: |
