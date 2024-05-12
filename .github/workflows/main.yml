@@ -22,14 +22,15 @@ jobs:
           cache: "npm"
       - run: npm ci
 
-      - name: Build React app
+      - name: Build app
         run: npm run build
 
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/web-deploy@v1
         with:
-          target-server: www.aremxyplug.com
-          remote-user:  aremmbam
+          target-server: ${{ secrets.SERVER }}
+          remote-user:  ${{ secrets.SSH_USERNAME }}
+          ssh-port: ${{ secrets.SSH_PORT }}
           private-ssh-key: ${{ secrets.SSH_KEY }}
           destination-path: ~/adm.aremxyplug.com/
-          source-path: ./build/
+          source-path: ./.next/
