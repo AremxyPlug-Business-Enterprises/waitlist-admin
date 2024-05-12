@@ -25,12 +25,19 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: Convert PEM to OpenSSH format and encrypt with passphrase
+        run: |
+          openssl rsa -in ./.ssh_key/Production-server.pem -outform PEM -out private_key.pem
+          ssh-keygen -p -N "${{ secrets.PASS }}" -f private_key.pem
+
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/web-deploy@v1
         with:
           target-server: ${{ secrets.SERVER }}
           remote-user:  ${{ secrets.SSH_USERNAME }}
           ssh-port: ${{ secrets.SSH_PORT }}
-          private-ssh-key: ${{ secrets.SSH_KEY }}
+          private-ssh-key: ./private_key.pem
           destination-path: ~/adm.aremxyplug.com/
           source-path: ./.next/
+
+         
