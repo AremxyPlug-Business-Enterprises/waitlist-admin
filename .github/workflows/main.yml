@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: Save Pem file
-        run: echo "${{ secrets.SSH_KEY}}" > private_key.pem
+        run: echo "${{ secrets.SSH_KEY }}" > private_key.pem
 
       - name: Add passphrase and encryption
         run: |
