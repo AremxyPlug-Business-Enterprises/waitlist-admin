@@ -29,7 +29,7 @@ jobs:
         run: |
           openssl rsa -in ./.ssh_key/Production-server.pem -outform PEM -out private_key.pem -passin pass:"{{ secrets.PASS }}"
         env:
-          PASSPHRASE: ${{ secrets.PASS }}
+          PASS: ${{ secrets.PASS }}
 
       - name: Deploy to cPanel via SSH
         uses: SamKirkland/web-deploy@v1
