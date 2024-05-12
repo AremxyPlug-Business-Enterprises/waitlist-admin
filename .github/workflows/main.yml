@@ -29,6 +29,8 @@ jobs:
         run: |
           openssl rsa -in ./.ssh_key/Production-server.pem -outform PEM -out private_key.pem
           ssh-keygen -p -N "${{ secrets.PASS }}" -f private_key.pem
+        env:
+          PASSPHRASE: ${{ secrets.PASS }}
 
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/web-deploy@v1
