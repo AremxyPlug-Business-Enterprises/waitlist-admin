@@ -29,8 +29,8 @@ jobs:
         run: echo "${{ secrets.SSH_KEY }}" > private_key.pem
 
       - name: Add passphrase and encryption
-        run: |
-          openssl rsa -in private_key.pem -passin pass:"${{ secrets.PASS }}" -passout pass:"${{ secrets.PASS }}" -out encrypted_private_key.pem
+        run: | 
+          openssl rsa -in private_key.pem -outform PEM -out encyrpted_private_key.pem -passin "pass:${{ secrets.PASS }}"
         env:
           PASS: ${{ secrets.PASS }}
 
