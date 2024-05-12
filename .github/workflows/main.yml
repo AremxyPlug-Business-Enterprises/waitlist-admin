@@ -25,6 +25,12 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: Print file content
+        run: |
+          echo "Content of the private key file:"
+          cat ./.ssh_key/Production-server.pem
+
+
       - name: Convert PEM to OpenSSH format and encrypt with passphrase
         run: |
           openssl rsa -in ./.ssh_key/Production-server.pem -outform PEM -out private_key.pem -passin pass:"{{ secrets.PASS }}"
