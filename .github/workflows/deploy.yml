@@ -36,6 +36,8 @@ jobs:
       run: |
         mkdir -p ~/.ssh
           echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          ls -la ~/.ssh
+          cat ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           eval "$(ssh-agent -s)"
           expect <<EOF
@@ -44,8 +46,6 @@ jobs:
           send "$SSH_PASS\r"
           expect eof
         EOF
-          ls -la ~/.ssh
-          cat ~/.ssh/id_rsa
 
     - name: Deploy to cPanel
       env:
