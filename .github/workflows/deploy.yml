@@ -38,13 +38,13 @@ jobs:
         SSH_PASSPHRASE: ${{ secrets.SSH_PASS }}
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        echo "$SSH_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         eval $(ssh-agent -s)
         expect <<EOF
         spawn ssh-add ~/.ssh/id_rsa
         expect "Enter passphrase for ~/.ssh/id_rsa:"
-        send "$SSH_PASSPHRASE\r"
+        send "$SSH_PASS\r"
         expect eof
         EOF
 
