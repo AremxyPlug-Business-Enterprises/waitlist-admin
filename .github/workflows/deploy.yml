@@ -26,12 +26,6 @@ jobs:
     - name: Build Next.js application
       run: npm run build
 
-    - name: Add SSH key
-      id: ssh_key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
-
     - name: Install expect
       run: sudo apt-get install expect
 
