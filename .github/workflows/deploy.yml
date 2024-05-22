@@ -35,15 +35,17 @@ jobs:
         SSH_PASS: ${{ secrets.SSH_PASS }}
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        eval $(ssh-agent -s)
-        expect <<EOF
-        spawn ssh-add ~/.ssh/id_rsa
-        expect "Enter passphrase for ~/.ssh/id_rsa:"
-        send "$SSH_PASS\r"
-        expect eof
+          echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          expect <<EOF
+          spawn ssh-add ~/.ssh/id_rsa
+          expect "Enter passphrase for ~/.ssh/id_rsa:"
+          send "$SSH_PASS\r"
+          expect eof
         EOF
+          ls -la ~/.ssh
+          cat ~/.ssh/id_rsa
 
     - name: Deploy to cPanel
       env:
