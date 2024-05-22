@@ -26,18 +26,36 @@ jobs:
     - name: Build Next.js application
       run: npm run build
 
-    - name: Deploy to cPanel
+    - name: Add SSH key
+      id: ssh_key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+    - name: Add passphrase and add SSH key to agent
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        SSH_PASSPHRASE: ${{ secrets.SSH_PASS }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        eval $(ssh-agent -s)
+        expect <<EOF
+        spawn ssh-add ~/.ssh/id_rsa
+        expect "Enter passphrase for ~/.ssh/id_rsa:"
+        send "$SSH_PASSPHRASE\r"
+        expect eof
+        EOF
+
+    - name: Deploy to cPanel
+      env:
         SSH_HOST: ${{ secrets.SERVER }}
         SSH_PORT: ${{ secrets.SSH_PORT }}
         SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         APP_DIR: /admin.aremxyplug.com/ # e.g., public_html/your_app_directory
       run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
+        ssh-keyscan -v -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
 
         echo "Attempting to connect to $SSH_HOST on port $SSH_PORT"
         ssh -v -p $SSH_PORT $SSH_USERNAME@$SSH_HOST exit
