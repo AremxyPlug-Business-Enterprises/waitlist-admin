@@ -50,6 +50,5 @@ jobs:
           ssh-port: ${{ secrets.SSH_PORT }}
           private-ssh-key: ./encrypted_private_key.pem
           destination-path: ~/adm.aremxyplug.com/
-          source-path: ./.next/
-
-         
+          source-path: ./
+          rsync-options: "--dry-run --archive --verbose --compress --delete-after --human-readable --exclude=.git* --exclude=.git/ --exclude=README.md --exclude=readme.md --exclude=.gitignore --exclude=.github/ --exclude=node_modules/"

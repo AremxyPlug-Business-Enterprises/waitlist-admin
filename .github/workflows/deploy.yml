@@ -1,0 +1,53 @@
+name: Deploy to cPanel 2
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 22
+        cache: "npm"
+    - run: npm ci
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Next.js application
+      run: npm run build
+
+    - name: Deploy to cPanel
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        SSH_HOST: ${{ secrets.SERVER }}
+        SSH_PORT: ${{ secrets.SSH_PORT }}
+        SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+        APP_DIR: /admin.aremxyplug.com/ # e.g., public_html/your_app_directory
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
+
+        rsync -avz --delete-after \
+          --exclude '.git' \
+          --exclude 'node_modules' \
+          --exclude '.github' \
+          . $SSH_USERNAME@$SSH_HOST:$APP_DIR
+
+        ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST << 'EOF'
+          cd $APP_DIR
+          npm install --production
+          pm2 restart nextjs-app || pm2 start npm --name "nextjs-app" -- start
+          pm2 save
+        EOF
